@@ -14,11 +14,15 @@ class GenusController extends Controller
      */
     public function showAction($genusName)
     {
-        $templating = $this->container->get('templating');
-        $html = $templating->render('genus/show.html.twig', [
-            'name' => $genusName
-        ]);
+        $notes = [
+            'test1',
+            'test2',
+            'test3'
+        ];
 
-        return new Response($html);
+        return $this->render('genus/show.html.twig', [
+            'name' => $genusName,
+            'notes' => $notes
+        ]);
     }
 }
