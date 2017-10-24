@@ -2,6 +2,7 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\Genus;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -11,6 +12,24 @@ use Symfony\Component\HttpFoundation\Response;
 
 class GenusController extends Controller
 {
+    // Put the most generic route at the bottom !
+    /**
+     * @Route("/genus/new")
+     */
+    public function newAction()
+    {
+        $genus = new Genus();
+        $genus->setName('Octopus'.rand(1, 100));
+
+        // Save to Genus table in db
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($genus);
+        $em->flush();
+
+        // Returns a response object
+        return new Response('<html><body>Genus created!</body></html>');
+    }
+
     /**
      * @Route("/genus/{genusName}")
      */
