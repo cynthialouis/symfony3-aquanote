@@ -51,12 +51,18 @@ class GenusController extends Controller
     }
 
     /**
-     * @Route("/genus/{genusName}")
+     * @Route("/genus/{genusName}", name="genus_show")
      */
     public function showAction($genusName)
     {
-        $funFact = 'Octopuses can change the color of their body in just *three-tenths* of a second!';
+        // Fetch the entity manager
+        $em = $this->getDoctrine()->getManager();
+        // Create a repository object from the query on the class name (not the table name!)
+        $genus = $em->getRepository('AppBundle:Genus')
+            ->findOneBy(['name' => $genusName]);
 
+        // TODO : Add the caching back later
+        /*
         $cache = $this->get('doctrine_cache.providers.my_markdown_cache');
         //Make sure the same string doesn't get parsed twice through markdown.
         $key = md5($funFact);
@@ -69,12 +75,10 @@ class GenusController extends Controller
                 ->transform($funFact);
             $cache->save($key, $funFact);
         }
-
-        $funFact = $this->get('markdown.parser')->transform($funFact);
+        */
 
         return $this->render('genus/show.html.twig', [
-            'name' => $genusName,
-            'funFact' => $funFact
+           'genus' => $genus
         ]);
     }
 
