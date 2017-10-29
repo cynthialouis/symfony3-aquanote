@@ -33,6 +33,20 @@ class GenusController extends Controller
     }
 
     /**
+     * @Route("/genus")
+     */
+    public function listAction()
+    {
+        // Get the entity manager
+        $em = $this->getDoctrine()->getManager();
+        // Create a repository object from the query on the class name (not the table name!)
+        // NB : Here, 'AppBundle:Genus' is a shortcut for 'AppBundle/Entity/Genus'
+        $genuses = $em->getRepository('AppBundle:Genus')
+            ->findAll();
+        dump($genuses);die;
+    }
+
+    /**
      * @Route("/genus/{genusName}")
      */
     public function showAction($genusName)
