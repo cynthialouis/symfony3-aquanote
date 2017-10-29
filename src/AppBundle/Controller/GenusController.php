@@ -43,7 +43,11 @@ class GenusController extends Controller
         // NB : Here, 'AppBundle:Genus' is a shortcut for 'AppBundle/Entity/Genus'
         $genuses = $em->getRepository('AppBundle:Genus')
             ->findAll();
-        dump($genuses);die;
+
+        // return a twig template
+        return $this->render('genus/list.html.twig', [
+            'genuses' => $genuses
+        ]);
     }
 
     /**
