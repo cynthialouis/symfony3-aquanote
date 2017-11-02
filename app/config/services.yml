@@ -8,7 +8,7 @@ services:
   app.markdown_tranformer:
     class: AppBundle\Service\MarkdownTransformer
     # The '@' from '@markdown.parser' below allows us to pass the SERVICE 'markdown.parser" and not the STRING !
-    arguments: ['@markdown.parser']
+    arguments: ['@markdown.parser', '@doctrine_cache.providers.my_markdown_cache']
 
 #    # default configuration for services in *this* file
 #    _defaults:
