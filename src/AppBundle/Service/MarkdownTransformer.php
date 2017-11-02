@@ -8,6 +8,8 @@
 
 namespace AppBundle\Service;
 
+use Knp\Bundle\MarkdownBundle\MarkdownParserInterface;
+
 /**
  * Class MarkdownTransformer
  * @package AppBundle\Service
@@ -20,7 +22,7 @@ class MarkdownTransformer
      * MarkdownTransformer constructor.
      * @param $markdownParser
      */
-    public function __construct($markdownParser)
+    public function __construct(MarkdownParserInterface $markdownParser)
     {
         $this->markdownParser = $markdownParser;
     }
@@ -32,6 +34,6 @@ class MarkdownTransformer
     public function parse($str)
     {
         return $this->markdownParser
-            ->transform($str);
+            ->transformMarkdown($str);
     }
 }
