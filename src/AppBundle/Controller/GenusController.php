@@ -3,6 +3,7 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Genus;
+use AppBundle\Service\MarkdownTransformer;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -19,7 +20,7 @@ class GenusController extends Controller
     public function newAction()
     {
         $genus = new Genus();
-        $genus->setName('Octopus'.rand(1, 100));
+        $genus->setName('Octopus' . rand(1, 100));
         $genus->setSubFamily('Octopodinae');
         $genus->setSpeciesCount(rand(100, 99999));
 
@@ -62,13 +63,16 @@ class GenusController extends Controller
             ->findOneBy(['name' => $genusName]);
 
         // Handle error if no genus was found
-        if(!$genus) {
+        if (!$genus) {
             // on developer environment :
             //throw $this->createNotFoundException('Not found');
 
             // on prod environment :
             return $this->render('notfound.html.twig');
         }
+
+        $transformer = new MarkdownTransformer();
+        $funFact = $transformer->parse($genus->getFunFact());
 
         // TODO : Add the caching back later
         /*
@@ -87,7 +91,8 @@ class GenusController extends Controller
         */
 
         return $this->render('genus/show.html.twig', [
-           'genus' => $genus
+            'funFact' => $funFact,
+            'genus' => $genus
         ]);
     }
 
