@@ -10,6 +10,13 @@ services:
     # The '@' from '@markdown.parser' below allows us to pass the SERVICE 'markdown.parser" and not the STRING !
     arguments: ['@markdown.parser', '@doctrine_cache.providers.my_markdown_cache']
 
+  # Add a new service as a Twig extension
+  app.markdown_extension:
+    class: AppBundle\Twig\MarkdownExtension
+    tags:
+      - { name: twig.extension }
+    arguments: ['@app.markdown_tranformer']
+
 #    # default configuration for services in *this* file
 #    _defaults:
 #        # automatically injects dependencies in your services
