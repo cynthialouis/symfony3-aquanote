@@ -42,7 +42,7 @@ class GenusController extends Controller
         // Create a repository object from the query on the class name (not the table name!)
         // NB : Here, 'AppBundle:Genus' is a shortcut for 'AppBundle/Entity/Genus'
         $genuses = $em->getRepository('AppBundle:Genus')
-            ->findAll();
+            ->findAllPublishedOrderedBySize();
 
         // return a twig template
         return $this->render('genus/list.html.twig', [
