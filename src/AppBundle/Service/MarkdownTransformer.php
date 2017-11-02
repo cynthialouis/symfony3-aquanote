@@ -14,12 +14,24 @@ namespace AppBundle\Service;
  */
 class MarkdownTransformer
 {
+    private $markdownParser;
+
+    /**
+     * MarkdownTransformer constructor.
+     * @param $markdownParser
+     */
+    public function __construct($markdownParser)
+    {
+        $this->markdownParser = $markdownParser;
+    }
+
     /**
      * @param $str
-     * @return string
+     * @return mixed
      */
     public function parse($str)
     {
-        return strtoupper($str);
+        return $this->markdownParser
+            ->transform($str);
     }
 }

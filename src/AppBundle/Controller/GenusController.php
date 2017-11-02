@@ -71,7 +71,7 @@ class GenusController extends Controller
             return $this->render('notfound.html.twig');
         }
 
-        $transformer = new MarkdownTransformer();
+        $transformer = new MarkdownTransformer($this->get('markdown.parser'));
         $funFact = $transformer->parse($genus->getFunFact());
 
         // TODO : Add the caching back later
