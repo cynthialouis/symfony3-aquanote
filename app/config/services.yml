@@ -15,7 +15,8 @@ services:
     class: AppBundle\Twig\MarkdownExtension
     tags:
       - { name: twig.extension }
-    arguments: ['@app.markdown_tranformer']
+    #arguments: ['@app.markdown_tranformer']
+    autowire: true
 
 #    # default configuration for services in *this* file
 #    _defaults:
