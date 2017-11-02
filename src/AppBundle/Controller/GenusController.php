@@ -71,7 +71,9 @@ class GenusController extends Controller
             return $this->render('notfound.html.twig');
         }
 
-        $transformer = new MarkdownTransformer($this->get('markdown.parser'));
+        //$transformer = new MarkdownTransformer($this->get('markdown.parser'));
+        // Now that the service has been added to the container, it will create that object behind the scenes.
+        $transformer = $this->get('app.markdown_tranformer');
         $funFact = $transformer->parse($genus->getFunFact());
 
         // TODO : Add the caching back later
